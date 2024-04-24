@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Link, json } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SummaryApi from '../common';
+import { toast } from 'react-toastify';
 
 const Signup = () => {
 
@@ -10,6 +11,8 @@ const Signup = () => {
         password: "",
         confirmPassword: ""
     });
+
+    const navigate = useNavigate();
 
     const handleOnChange = (e) => {
         const { name, value } = e.target
@@ -34,7 +37,17 @@ const Signup = () => {
         });
         
         const dataApi = await dataResponse.json();
-        console.log(dataApi);
+        
+        if(dataApi.success){
+            toast.success(dataApi.message);
+            navigate("/login")
+        }
+        if(dataApi.error){
+            toast.error(dataApi.message)
+        }
+        
+
+
     };
 
 
