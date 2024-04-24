@@ -8,8 +8,8 @@ async function userSignupController( req, res ){
         const user = await User.findOne({email});
 
         if(user){
-            throw new Error("User is already exist, try again")
-        }
+            throw new Error("User is already exist, try again");
+        };
 
         if (!email || !password || !name){
             throw new Error(" Please provide all the field ");
@@ -21,15 +21,17 @@ async function userSignupController( req, res ){
         const userData = User({
             email,
             password: hashPassword,
-            name
-        })
+            name,
+            role: "GENERAL"
+        });
+
         const saveUser = userData.save();
         res.status(201).json({
             data: saveUser,
             success: true,
             error: false,
             message: "User created successfully."
-        })
+        });
 
 
     } catch (error) {
@@ -37,8 +39,8 @@ async function userSignupController( req, res ){
             message: error.message || error,
             success: false,
             error  : true
-        })
-    }
+        });
+    };
 };
 
 export default userSignupController;
