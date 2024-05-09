@@ -1,11 +1,14 @@
 import React from 'react'
 import { GrSearch } from 'react-icons/gr';
-import { FaFacebook, FaRegUser } from "react-icons/fa6";
+import {  FaRegUser } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 
 const Header = () => {
+    const user = useSelector(state => state?.user?.user)
+    console.log("user-header",user)
     return (
         <header className='h-16 p-2 shadow-md bg-white'>
             <div className='container mx-auto h-full flex items-center px-4 justify-between'>
