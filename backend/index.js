@@ -6,6 +6,7 @@ import connectDB from './configuration/database.js';
 import userSignupRouter from './routes/userSignup.route.js';
 import userSigninRouter from './routes/userSignin.route.js';
 import userDetailRouter from './routes/userDetail.route.js';
+import userLogoutRouter from './routes/userLogout.route.js';
 
 
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use("/api", userSignupRouter);
 app.use("/api", userSigninRouter);
 app.use("/api", userDetailRouter);
+app.use("/api", userLogoutRouter);
 
 const PORT = process.env.PORT || 8081;
 

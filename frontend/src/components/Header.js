@@ -1,14 +1,30 @@
 import React from 'react'
 import { GrSearch } from 'react-icons/gr';
-import {  FaRegUser } from "react-icons/fa6";
+import { FaRegUser } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import SummaryApi from '../common';
+import { toast } from 'react-toastify';
 
 
 
 const Header = () => {
-    const user = useSelector(state => state?.user?.user)
-    console.log("user-header",user)
+    const user = useSelector(state => state?.user?.user);
+
+    const handleLogout = async () => {
+        const fetchData = await fetch(SummaryApi.logout_user.url, {
+            method: SummaryApi.logout_user.method,
+            credentials: 'include'
+        });
+        const data = await fetchData.json();
+        if (data.success) {
+            toast.success(data.message)
+        }
+        if (data.error) {
+            toast.error(data.message)
+        }
+    }
+    console.log("user-header", user)
     return (
         <header className='h-16 p-2 shadow-md bg-white'>
             <div className='container mx-auto h-full flex items-center px-4 justify-between'>
@@ -27,7 +43,7 @@ const Header = () => {
 
                 <div className='flex gap-4'>
                     <button type="button" className="text-white bg-sky-500 rounded-full font-medium  text-sm px-3.5 py-2.5 text-center inline-flex items-center me-2 mb-2">
-                        <FaRegUser/>
+                        <FaRegUser />
                     </button>
 
                     <button type="button" className="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
@@ -37,9 +53,17 @@ const Header = () => {
                         Facebook
                     </button>
                     <div>
-                        <Link to="/login" className="text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 me-2 mb-2">
-                            Login
-                        </Link>
+                    {
+                        user?._id ? (
+                            <button onClick={handleLogout}>Logout</button>
+                        )
+                        :
+                        (
+                            <Link to="/login" className="text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 me-2 mb-2">
+                                Login
+                            </Link>
+                        )
+                    }
                     </div>
                 </div>
             </div>
