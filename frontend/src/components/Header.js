@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GrSearch } from 'react-icons/gr';
 import { FaRegUser } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
@@ -10,7 +10,9 @@ import { toast } from 'react-toastify';
 
 const Header = () => {
     const user = useSelector(state => state?.user?.user);
-
+    const [menuDisplay, setMenuDisplay] = useState(false);
+    
+    
     const handleLogout = async () => {
         const fetchData = await fetch(SummaryApi.logout_user.url, {
             method: SummaryApi.logout_user.method,
@@ -41,29 +43,37 @@ const Header = () => {
                     </div>
                 </div>
 
-                <div className='flex gap-4'>
-                    <button type="button" className="text-white bg-sky-500 rounded-full font-medium  text-sm px-3.5 py-2.5 text-center inline-flex items-center me-2 mb-2">
-                        <FaRegUser />
-                    </button>
+                <div className='flex items-center gap-4'>
+                    <div className='relative group flex justify-center'>
+                        <button type="button" onClick={()=>setMenuDisplay(prev => !prev)} className="text-white bg-sky-500 rounded-full font-medium  text-sm px-3 py-3 text-center inline-flex items-center me-2 mb-2">
+                            <FaRegUser />
+                        </button>
+                        {menuDisplay && (
+                            <div className='absolute bg-slate-300/80 bottom-0 top-11 w-36 h-fit p-4 shadow-lg rounded-md'>
+                                <nav className='text-center'>
+                                    {user?._id ? (
+                                        <p className='py-2 mb-2 font-semibold border-b border-b-slate-400'>{user.name}</p>
+                                    ) : (<></>)}
+                                    <Link to="/admin-panel" className='text-white px-2 py-1 bg-orange-400/80 hover:bg-orange-400 rounded-md'>Admin panel</Link>
+                                </nav>
+                            </div>
+                        )}
+                    </div>
 
-                    <button type="button" className="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
-                        <svg className="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 19">
-                            <path fillRule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clipRule="evenodd" />
-                        </svg>
-                        Facebook
-                    </button>
                     <div>
-                    {
-                        user?._id ? (
-                            <button onClick={handleLogout}>Logout</button>
-                        )
-                        :
-                        (
-                            <Link to="/login" className="text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 me-2 mb-2">
-                                Login
-                            </Link>
-                        )
-                    }
+                        {
+                            user?._id ? (
+                                <Link to="/login" onClick={handleLogout} className="text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 me-2 mb-2">
+                                    Logout
+                                </Link>
+                            )
+                                :
+                                (
+                                    <Link to="/login" className="text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 me-2 mb-2">
+                                        Login
+                                    </Link>
+                                )
+                        }
                     </div>
                 </div>
             </div>
