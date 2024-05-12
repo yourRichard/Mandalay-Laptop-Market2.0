@@ -39,6 +39,7 @@ function App() {
     <ToastContainer/>
     <Header/>
       <Outlet/>
+      <Footer/>
     </Context.Provider>
     </>
   );

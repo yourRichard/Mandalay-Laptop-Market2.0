@@ -11,8 +11,8 @@ import { toast } from 'react-toastify';
 const Header = () => {
     const user = useSelector(state => state?.user?.user);
     const [menuDisplay, setMenuDisplay] = useState(false);
-    
-    
+
+
     const handleLogout = async () => {
         const fetchData = await fetch(SummaryApi.logout_user.url, {
             method: SummaryApi.logout_user.method,
@@ -45,18 +45,24 @@ const Header = () => {
 
                 <div className='flex items-center gap-4'>
                     <div className='relative group flex justify-center'>
-                        <button type="button" onClick={()=>setMenuDisplay(prev => !prev)} className="text-white bg-sky-500 rounded-full font-medium  text-sm px-3 py-3 text-center inline-flex items-center me-2 mb-2">
+                        <button type="button" onClick={() => setMenuDisplay(prev => !prev)} className="text-white bg-sky-500 rounded-full font-medium  text-sm px-3 py-3 text-center inline-flex items-center me-2 mb-2">
                             <FaRegUser />
                         </button>
-                        {menuDisplay && (
-                            <div className='absolute bg-slate-300/80 bottom-0 top-11 w-36 h-fit p-4 shadow-lg rounded-md'>
-                                <nav className='text-center'>
-                                    {user?._id ? (
-                                        <p className='py-2 mb-2 font-semibold border-b border-b-slate-400'>{user.name}</p>
-                                    ) : (<></>)}
-                                    <Link to="/admin-panel" className='text-white px-2 py-1 bg-orange-400/80 hover:bg-orange-400 rounded-md'>Admin panel</Link>
-                                </nav>
+                        {user?._id ? (
+                            <div>
+                                {menuDisplay && (
+                                    <div className='absolute bg-slate-100/80 bottom-0 top-11 ml-[-100px] w-36 h-fit p-4 shadow-lg rounded-md'>
+                                        <nav className='text-center'>
+                                            {user?._id ? (
+                                                <p className='py-2 mb-2 font-semibold border-b border-b-slate-400'>{user.name}</p>
+                                            ) : (<></>)}
+                                            <Link to="/admin-panel" className='text-white px-2 py-1 bg-orange-400/80 hover:bg-orange-400 rounded-md'>Admin panel</Link>
+                                        </nav>
+                                    </div>
+                                )}
                             </div>
+                        ) : (
+                            <></>
                         )}
                     </div>
 
