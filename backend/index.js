@@ -7,7 +7,7 @@ import userSignupRouter from './routes/userSignup.route.js';
 import userSigninRouter from './routes/userSignin.route.js';
 import userDetailRouter from './routes/userDetail.route.js';
 import userLogoutRouter from './routes/userLogout.route.js';
-
+import allUserRouter from './routes/allUsers.route.js';
 
 dotenv.config();
 const app = express();
@@ -22,6 +22,7 @@ app.use("/api", userSignupRouter);
 app.use("/api", userSigninRouter);
 app.use("/api", userDetailRouter);
 app.use("/api", userLogoutRouter);
+app.use("/api", allUserRouter);
 
 const PORT = process.env.PORT || 8081;
 

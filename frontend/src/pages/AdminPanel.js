@@ -6,7 +6,10 @@ const AdminPanel = () => {
   const user = useSelector(state => state?.user?.user)
   return (
     <div className='min-h-[calc(100vh-120px)] flex '>
-        <aside className='bg-slate-200 min-h-full rounded-b-2xl md:block hidden w-full max-w-80 p-4'>
+        <div className='bottom-0 fixed md:hidden flex w-full bg-slate-300 h-[60px]'>
+          lksfjlj
+        </div>
+        <aside className='bg-slate-200 min-h-full rounded-b-2xl md:block hidden w-full max-w-60 p-4'>
             {user?._id && (
               <div className='border-b border-b-slate-400 h-24'>
                 <div className='flex flex-row mx-10 '>

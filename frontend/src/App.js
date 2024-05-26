@@ -23,7 +23,6 @@ function App() {
       dispatch(setUserDetail(dataApi.data))
     }
 
-    console.log("data-user: ",dataApi);
   }
   useEffect(() => {
     //user details

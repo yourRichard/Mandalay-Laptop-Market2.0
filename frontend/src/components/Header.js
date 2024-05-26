@@ -26,7 +26,6 @@ const Header = () => {
             toast.error(data.message)
         }
     }
-    console.log("user-header", user)
     return (
         <header className='h-16 p-2 shadow-md bg-white'>
             <div className='container mx-auto h-full flex items-center px-4 justify-between'>
